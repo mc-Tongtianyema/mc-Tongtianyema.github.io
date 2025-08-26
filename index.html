@@ -184,13 +184,15 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    document.querySelectorAll('.btn').forEach(btn=>{
-      btn.addEventListener('pointermove', (e)=>{
+  
+    document.querySelectorAll('.btn')。forEach(btn=>{
+      btn。addEventListener('pointermove'， (e)=>{
         const r = btn.getBoundingClientRect();
         btn.style.setProperty('--x', (e.clientX - r.left) + 'px');
-        btn.style.setProperty('--y', (e.clientY - r.top) + 'px');
+        btn.style。setProperty('--y'， (e.clientY - r.top) + 'px');
       });
     });
+
 
     const target = new Date('2026-07-03T00:00:00');
     const d = document.getElementById('d');
@@ -202,28 +204,99 @@
     let last = {d:null,h:null,m:null,s:null};
     function bumpIfChange(id, val){
       if(last[id] !== val){
-        document.getElementById(id).parentElement.classList.add('bump');
+        document.getElementById(id)。parentElement。classList。add('bump');
         setTimeout(()=>document.getElementById(id).parentElement.classList.remove('bump'), 180);
         last[id] = val;
       }
     }
     function updateCountdown(){
-      const now = new Date();
-      const ms = target - now;
+      const 当前 = new Date();
+      const ms = target - 当前;
       if (ms <= 0){
-        d.textContent = '0'; h.textContent = '0'; m.textContent = '0'; s.textContent = '0';
+        d。textContent = '0'; h。textContent = '0'; m。textContent = '0'; s。textContent = '0';
         tip.textContent = '倒计时结束！生日快乐，通天野马！12岁啦！';
         return;
       }
       const totalSeconds = Math.floor(ms / 1000);
       const days = Math.floor(totalSeconds / (3600*24));
-      const hours = Math.floor((totalSeconds % (3600*24)) / 3600);
-      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const hours = Math。floor((totalSeconds % (3600*24)) / 3600);
+      const minutes = Math。floor((totalSeconds % 3600) / 60);
       const seconds = totalSeconds % 60;
-      d.textContent = days; bumpIfChange('d', days);
+      d.textContent = days; bumpIfChange('d'， days);
       h.textContent = hours.toString().padStart(2,'0'); bumpIfChange('h', hours);
       m.textContent = minutes.toString().padStart(2,'0'); bumpIfChange('m', minutes);
-      s.textContent = seconds.toString().padStart(2,'0'); bumpIfChange('s', seconds);
+      s.textContent = seconds。toString().padStart(2,'0'); bumpIfChange('s', seconds);
     }
     updateCountdown();
-    setInterval
+    setInterval(updateCountdown, 1000);
+
+   
+    const aboutBtn = document.getElementById('aboutBtn');
+    const backdrop = document.getElementById('aboutBackdrop');
+    const closeAbout = document.getElementById('closeAbout');
+    function openAbout(){ backdrop.style.display = 'flex'; }
+    function closeModal(){ backdrop.style.display = 'none'; }
+    aboutBtn.addEventListener('click', openAbout);
+    if (closeAbout) closeAbout.addEventListener('click', closeModal);
+    backdrop.addEventListener('click', (e)=>{ if(e.target === backdrop) closeModal(); });
+    window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); })
+
+   
+    const audio = document.getElementById('audio');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const trackName = document.getElementById('trackName');
+
+    function refreshIcon(){ playPauseBtn.textContent = audio.paused ? '▶︎' : '⏸'; }
+    playPauseBtn.addEventListener('click', ()=>{ if (audio.paused) { audio.play(); } else { audio.pause(); } });
+    audio.addEventListener('play', refreshIcon);
+    audio.addEventListener('pause', refreshIcon);
+    document.addEventListener('visibilitychange', ()=>{ if (document.hidden) { audio.pause(); } });
+    refreshIcon();
+
+    
+    (function(){
+      const QUOTES = [
+        '愿每一次闪电都照亮前行之路。',
+        '方块之上，也有无限宇宙。',
+        '保持好奇，保持热爱。',
+        '今天也要元气满满！',
+        '把目标拆成方块，一块一块搭起来。',
+        '不畏乌云电闪，心有光就不怕黑。',
+        '愿你前程似锦，所愿皆成。',
+        '让喜欢的一切，发光。',
+        '慢慢来，但一直在。'
+      ];
+      const d = new Date();
+      const idx = (d.getFullYear()*372 + (d.getMonth()+1)*31 + d.getDate()) % QUOTES.length; 
+      const el = document.getElementById('hitokoto');
+      if (el) el.textContent = QUOTES[idx];
+    })();
+
+    
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+
+    
+    const subtitle = document.querySelector('.subtitle');
+    const full = subtitle.textContent; subtitle.textContent = '';
+    let i = 0; (function type(){ subtitle.textContent = full.slice(0, ++i); if(i < full.length) setTimeout(type, 40); })();
+
+    
+    function showBirthdayPopup(){
+      const now = new Date();
+      if (now.getMonth() === 2 && now.getDate() === 27){
+        const is2026 = now.getFullYear() === 2026;
+        const msg = is2026 ? '🎂 闪电，18岁生日快乐！愿前程似锦，所愿皆成！' : '🎂 闪电，生日快乐！';
+        const modal = document.getElementById('aboutModal');
+        const original = modal.innerHTML;
+        modal.innerHTML = `<h3>生日快乐</h3><p style=\"line-height:1.8\">${msg}</p><div class=\"actions\"><button class=\"btn\" id=\"birthdayClose\">谢谢</button></div>`;
+        backdrop.style.display = 'flex';
+        document.getElementById('birthdayClose').addEventListener('click', ()=>{ backdrop.style.display = 'none'; modal.innerHTML = original; const cb = document.getElementById('closeAbout'); if (cb) cb.addEventListener('click', closeModal); });
+      }
+    }
+    showBirthdayPopup();
+  </script>
+</body>
+</html>
