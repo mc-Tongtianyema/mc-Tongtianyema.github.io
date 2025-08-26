@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>闪电的个人主页 · 修复显示不全</title>
-  <meta name="description" content="闪电的个人主页｜Minecraft 爱好者｜高中生站长" />
+  <title>通天野马的个人主页 · 修复显示不全</title>
+  <meta name="description" content="通天野马的个人主页｜Minecraft 爱好者" />
   <link rel="preload" as="image" href="https://q1.qlogo.cn/g?b=qq&nk=2932944216&s=100">
   <style>
  
@@ -117,14 +117,14 @@
     <header class="card reveal">
       <div class="avatar floating" aria-hidden="true"></div>
       <div class="title">
-        <h1>⚡ 闪电的个人主页</h1>
-        <div class="subtitle">Minecraft 爱好者｜高中生站长｜欢迎来访</div>
+        <h1>通天野马的个人主页</h1>
+        <div class="subtitle">Minecraft 爱好者｜欢迎来访</div>
       </div>
     </header>
 
     <section class="grid">
       <section id="block-countdown" class="card panel reveal" aria-labelledby="countdown-title">
-        <h2 id="countdown-title" style="margin:0 0 10px 0">🎉 距离 2026-03-27 00:00（18岁生日）倒计时</h2>
+        <h2 id="countdown-title" style="margin:0 0 10px 0">🎉 距离 2026-07-03 00:00（12岁生日）倒计时</h2>
         <div class="countdown" id="countdown">
           <div class="chip"><strong id="d">--</strong><span>天</span></div>
           <div class="chip"><strong id="h">--</strong><span>时</span></div>
@@ -137,9 +137,9 @@
       <section id="block-nav" class="card panel reveal" aria-labelledby="nav-title">
         <h2 id="nav-title" style="margin:0 0 10px 0">🧭 站点导航</h2>
         <div class="buttons">
-          <a class="btn btn-accent" href="https://chat.shandiana.cn" target="_blank" rel="noopener noreferrer" aria-label="AI">AI</a>
-          <a class="btn" href="https://www.rainyun.com/MzA5MTM=_" target="_blank" rel="noopener noreferrer" aria-label="站长推荐">站长推荐</a>
-          <a class="btn" href="https://gxzh.shandiana.cn/" target="_blank" rel="noopener noreferrer" aria-label="共享账号">共享账号</a>
+          <a class="btn btn-accent" href="https://mc-tongtianyema.github.io/Win10/" target="_blank" rel="noopener noreferrer" aria-label="win10">win10</a>
+          <a class="btn" href="https://www.rainyun.com/NjY2OTYy_" target="_blank" rel="noopener noreferrer" aria-label="站长推荐">站长推荐</a>
+          <a class="btn" href="https://mc-tongtianyema.github.io/win12/desktop.html" target="_blank" rel="noopener noreferrer" aria-label="win12">win12</a>
           <button class="btn" id="aboutBtn" aria-haspopup="dialog" aria-controls="aboutModal">关于</button>
         </div>
       </section>
@@ -160,15 +160,13 @@
       <section id="block-contact" class="card panel reveal" aria-labelledby="contact-title">
         <h2 id="contact-title" style="margin:0 0 10px 0">📡 联系方式</h2>
         <div class="links">
-          <a class="icon-link" href="http://wpa.qq.com/msgrd?v=3&uin=2932944216&site=qq&menu=yes" target="_blank" rel="noopener noreferrer" aria-label="QQ">QQ</a>
-          <a class="icon-link" href="mailto:2932944216@qq.com" aria-label="邮箱">邮箱</a>
-          <a class="icon-link" href="https://space.bilibili.com/1675718825" target="_blank" rel="noopener noreferrer" aria-label="哔哩哔哩">哔哩哔哩</a>
+          <a class="icon-link" href="mailto:3824181006@qq.com" aria-label="邮箱">邮箱</a>
         </div>
       </section>
     </section>
 
     <footer>
-      <p style="text-align:center">© <span id="year"></span> 闪电 · Powered by HTML + CSS + JS · 愿每一次闪电都照亮前行的路 ⚡</p>
+      <p style="text-align:center">© <span id="year"></span> 通天野马 · Powered by HTML + CSS + JS · 网页提供商:github pages</p>
     </footer>
   </main>
 
@@ -176,7 +174,7 @@
   <div class="modal-backdrop" id="aboutBackdrop" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
     <div class="modal" id="aboutModal">
       <h3 id="aboutTitle">关于本站</h3>
-      <p>关于我：<br/>我是 <strong>闪电</strong>，一个高中生，同时也是本站站长。很高兴认识你！</p>
+      <p>关于我：<br/>我是 <strong>通天野马</strong>，是本站站长。很高兴认识你！</p>
       <div class="actions">
         <a class="btn btn-accent" href="https://zanzhu.shandiana.cn/" target="_blank" rel="noopener noreferrer">💖 赞助我</a>
         <button class="btn" id="closeAbout">关闭</button>
@@ -198,7 +196,7 @@
     });
 
 
-    const target = new Date('2026-03-27T00:00:00');
+    const target = new Date('2026-07-03T00:00:00');
     const d = document.getElementById('d');
     const h = document.getElementById('h');
     const m = document.getElementById('m');
@@ -218,7 +216,7 @@
       const ms = target - now;
       if (ms <= 0){
         d.textContent = '0'; h.textContent = '0'; m.textContent = '0'; s.textContent = '0';
-        tip.textContent = '倒计时结束！生日快乐，闪电！18岁啦！';
+        tip.textContent = '倒计时结束！生日快乐，通天野马！12岁啦！';
         return;
       }
       const totalSeconds = Math.floor(ms / 1000);
@@ -292,7 +290,7 @@
       const now = new Date();
       if (now.getMonth() === 2 && now.getDate() === 27){
         const is2026 = now.getFullYear() === 2026;
-        const msg = is2026 ? '🎂 闪电，18岁生日快乐！愿前程似锦，所愿皆成！' : '🎂 闪电，生日快乐！';
+        const msg = is2026 ? '🎂 通天野马，12岁生日快乐！愿前程似锦，所愿皆成！' : '🎂 通天野马，生日快乐！';
         const modal = document.getElementById('aboutModal');
         const original = modal.innerHTML;
         modal.innerHTML = `<h3>生日快乐</h3><p style=\"line-height:1.8\">${msg}</p><div class=\"actions\"><button class=\"btn\" id=\"birthdayClose\">谢谢</button></div>`;
