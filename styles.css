@@ -7,7 +7,7 @@ body {
 }
 
 header {
-    background-color: #333;
+    background-color: #24292e;
     color: #fff;
     padding: 10px 20px;
     text-align: center;
@@ -15,6 +15,7 @@ header {
 
 header h1 {
     margin: 0;
+    font-size: 2em;
 }
 
 header p {
@@ -86,7 +87,7 @@ section h2 {
 }
 
 footer {
-    background-color: #333;
+    background-color: #24292e;
     color: #fff;
     text-align: center;
     padding: 10px 0;
