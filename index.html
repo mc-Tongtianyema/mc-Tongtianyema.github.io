@@ -1,70 +1,739 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>通天野马的个人主页</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+    <title>通天野马 - Minecraft爱好者 & 开发者</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        :root {
+            --mc-green: #3b8526;
+            --mc-dark-green: #2a5c1e;
+            --mc-brown: #8b6914;
+            --mc-dark-brown: #5d4a1a;
+            --mc-dirt: #9c7c3d;
+            --mc-stone: #8f8f8f;
+            --mc-dark: #1a1a1a;
+            --mc-light: #f5f5f5;
+        }
+        
+        body {
+            background-color: var(--mc-dark);
+            color: var(--mc-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 像素化按钮 */
+        .pixel-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--mc-green);
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 
+                4px 0 0 0 var(--mc-dark-green),
+                0 4px 0 0 var(--mc-dark-green),
+                4px 4px 0 0 var(--mc-dark-green);
+        }
+        
+        .pixel-btn:hover {
+            background-color: var(--mc-dark-green);
+            transform: translate(2px, 2px);
+            box-shadow: 
+                2px 0 0 0 var(--mc-dark-green),
+                0 2px 0 0 var(--mc-dark-green),
+                2px 2px 0 0 var(--mc-dark-green);
+        }
+        
+        /* 像素化边框 */
+        .pixel-border {
+            border: 4px solid var(--mc-brown);
+            position: relative;
+            background-color: var(--mc-dirt);
+        }
+        
+        .pixel-border::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border: 4px solid var(--mc-dark-brown);
+            z-index: -1;
+        }
+        
+        /* 导航栏 */
+        header {
+            background-color: rgba(26, 26, 26, 0.9);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+            border-bottom: 4px solid var(--mc-brown);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--mc-green);
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--mc-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--mc-green);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--mc-green);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            padding: 180px 0 100px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--mc-green);
+            text-shadow: 3px 3px 0 var(--mc-dark-brown);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--mc-light);
+        }
+        
+        .mc-character {
+            width: 150px;
+            height: 200px;
+            margin: 30px auto;
+            position: relative;
+            background-color: #3b8526;
+            border: 4px solid #2a5c1e;
+            box-shadow: 0 0 0 4px #8b6914;
+        }
+        
+        .mc-head {
+            width: 100px;
+            height: 100px;
+            background-color: #3b8526;
+            border: 4px solid #2a5c1e;
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .mc-face {
+            width: 60px;
+            height: 30px;
+            background-color: #2a2a2a;
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .mc-body {
+            width: 80px;
+            height: 100px;
+            background-color: #3b8526;
+            border: 4px solid #2a5c1e;
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* 关于我区域 */
+        .about {
+            padding: 100px 0;
+            background-color: var(--mc-dark);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--mc-green);
+            display: inline-block;
+            padding: 0 20px;
+            background-color: var(--mc-dark);
+            z-index: 1;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background-color: var(--mc-brown);
+            z-index: 0;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--mc-green);
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .mc-block {
+            width: 100%;
+            height: 300px;
+            background-color: var(--mc-dirt);
+            border: 8px solid var(--mc-brown);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .mc-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(90deg, transparent 90%, rgba(139, 105, 20, 0.3) 90%),
+                linear-gradient(0deg, transparent 90%, rgba(139, 105, 20, 0.3) 90%);
+            background-size: 20px 20px;
+        }
+        
+        .mc-block-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        /* 技能区域 */
+        .skills {
+            padding: 100px 0;
+            background-color: #222;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .skill-card {
+            background-color: var(--mc-dark);
+            padding: 30px;
+            border: 4px solid var(--mc-brown);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .skill-icon {
+            font-size: 3rem;
+            color: var(--mc-green);
+            margin-bottom: 20px;
+        }
+        
+        .skill-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--mc-light);
+        }
+        
+        .skill-card p {
+            color: #aaa;
+        }
+        
+        /* 项目区域 */
+        .projects {
+            padding: 100px 0;
+            background-color: var(--mc-dark);
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .project-card {
+            background-color: #222;
+            border: 4px solid var(--mc-brown);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .project-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .project-img {
+            height: 200px;
+            background-color: var(--mc-dirt);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-img::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(90deg, transparent 90%, rgba(139, 105, 20, 0.3) 90%),
+                linear-gradient(0deg, transparent 90%, rgba(139, 105, 20, 0.3) 90%);
+            background-size: 20px 20px;
+        }
+        
+        .project-content {
+            padding: 20px;
+        }
+        
+        .project-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--mc-green);
+        }
+        
+        .project-content p {
+            color: #aaa;
+            margin-bottom: 15px;
+        }
+        
+        /* 联系区域 */
+        .contact {
+            padding: 100px 0;
+            background-color: #222;
+            text-align: center;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            background-color: var(--mc-dark);
+            border: 4px solid var(--mc-brown);
+        }
+        
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--mc-green);
+            margin-right: 15px;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: #111;
+            padding: 30px 0;
+            text-align: center;
+            border-top: 4px solid var(--mc-brown);
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .social-links a {
+            color: var(--mc-light);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--mc-green);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+        
+        /* 动画效果 */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .floating {
+            animation: float 5s ease-in-out infinite;
+        }
+        
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--mc-dark);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--mc-brown);
+            border-radius: 6px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--mc-green);
+        }
+    </style>
 </head>
 <body>
+    <!-- 导航栏 -->
     <header>
-        <div class="header-content">
-            <h1>通天野马</h1>
-            <p>游戏名: mc_noch | Minecraft爱好者</p>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-horse-head"></i>
+                    <span>通天野马</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#about">关于我</a></li>
+                    <li><a href="#skills">技能</a></li>
+                    <li><a href="#projects">项目</a></li>
+                    <li><a href="#contact">联系我</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
-    <nav>
-        <ul>
-            <li><a href="#about">关于我</a></li>
-            <li><a href="#projects">我的项目</a></li>
-            <li><a href="#minecraft">Minecraft世界</a></li>
-            <li><a href="#contact">联系我</a></li>
-        </ul>
-    </nav>
-
-    <main>
-        <section id="about">
-            <h2>关于我</h2>
-            <p>嗨，我是通天野马，一个热爱游戏和编程的开发者。我在Minecraft的世界里度过了无数快乐的时光，也喜欢探索各种有趣的技术。</p>
-            <img src="profile.jpg" alt="通天野马" class="profile-image">
-        </section>
-
-        <section id="projects">
-            <h2>我的项目</h2>
-            <div class="project">
-                <h3>Minecraft服务器</h3>
-                <p>我搭建了一个Minecraft服务器，欢迎加入！服务器地址：<a href="mc://join/server_address">server_address</a></p>
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="mc-character floating">
+                <div class="mc-head">
+                    <div class="mc-face"></div>
+                </div>
+                <div class="mc-body"></div>
             </div>
-            <div class="project">
-                <h3>个人网站</h3>
-                <p>这是我的个人网站，展示我的项目和爱好。</p>
+            <h1>通天野马</h1>
+            <p>Minecraft爱好者 & C++/前端开发者</p>
+            <a href="#about" class="pixel-btn">探索我的世界</a>
+        </div>
+    </section>
+
+    <!-- 关于我区域 -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>关于我</h2>
             </div>
-        </section>
-
-        <section id="minecraft">
-            <h2>Minecraft世界</h2>
-            <p>我是一个狂热的Minecraft爱好者，喜欢建造、探索和生存。以下是一些我最喜欢的作品和截图。</p>
-            <div class="minecraft-gallery">
-                <img src="minecraft1.jpg" alt="Minecraft 1">
-                <img src="minecraft2.jpg" alt="Minecraft 2">
-                <img src="minecraft3.jpg" alt="Minecraft 3">
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>你好，我是通天野马！</h3>
+                    <p>我是一名热爱Minecraft的开发者，从2015年开始接触这款游戏，从此沉迷于它的创造无限可能性。</p>
+                    <p>除了在Minecraft中建造各种奇观，我还热衷于开发Minecraft插件和模组，使用Java和C++为游戏增添新功能。</p>
+                    <p>在编程方面，我精通C++、HTML、CSS和Markdown，喜欢创建美观且功能强大的应用程序和网站。</p>
+                    <p>我的目标是结合对Minecraft的热爱和编程技能，创造出独特的游戏体验和工具。</p>
+                    <a href="#contact" class="pixel-btn">联系我</a>
+                </div>
+                <div class="mc-block">
+                    <div class="mc-block-content">
+                        <h3>我的Minecraft哲学</h3>
+                        <p>"方块虽小，却能构建无限世界"</p>
+                    </div>
+                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="contact">
-            <h2>联系我</h2>
-            <p>你可以通过以下方式联系我：</p>
-            <ul>
-                <li>Email: <a href="mailto:your_email@example.com">your_email@example.com</a></li>
-                <li>Discord: <a href="https://discord.com/users/your_discord_id">mc_noch#1234</a></li>
-            </ul>
-        </section>
-    </main>
+    <!-- 技能区域 -->
+    <section class="skills" id="skills">
+        <div class="container">
+            <div class="section-title">
+                <h2>我的技能</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fab fa-cuttlefish"></i>
+                    </div>
+                    <h3>C++ 开发</h3>
+                    <p>精通C++编程，能够开发高性能应用程序和游戏模组。</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fab fa-html5"></i>
+                    </div>
+                    <h3>HTML/CSS</h3>
+                    <p>能够创建响应式、美观的网页设计，注重用户体验。</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fab fa-markdown"></i>
+                    </div>
+                    <h3>Markdown</h3>
+                    <p>熟练使用Markdown编写文档和技术博客。</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <h3>Minecraft 开发</h3>
+                    <p>精通Minecraft插件和模组开发，熟悉游戏机制。</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- 项目区域 -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <div class="section-title">
+                <h2>我的项目</h2>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-img"></div>
+                    <div class="project-content">
+                        <h3>Minecraft 自动化农场</h3>
+                        <p>使用红石和命令方块创建的完全自动化农场系统，能够自动种植、收割和存储作物。</p>
+                        <a href="#" class="pixel-btn">查看详情</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img"></div>
+                    <div class="project-content">
+                        <h3>C++ 游戏引擎</h3>
+                        <p>基于C++开发的简易2D游戏引擎，支持精灵渲染、碰撞检测和音频播放。</p>
+                        <a href="#" class="pixel-btn">查看详情</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img"></div>
+                    <div class="project-content">
+                        <h3>响应式个人网站</h3>
+                        <p>使用HTML和CSS创建的完全响应式个人网站，适配各种设备屏幕。</p>
+                        <a href="#" class="pixel-btn">查看详情</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系区域 -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>联系我</h2>
+            </div>
+            <p>有兴趣合作或只是想聊聊Minecraft？随时联系我！</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h4>邮箱</h4>
+                        <p>wildhorse@example.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-discord"></i>
+                    </div>
+                    <div>
+                        <h4>Discord</h4>
+                        <p>WildHorse#1234</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <div>
+                        <h4>GitHub</h4>
+                        <p>github.com/wildhorse</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
     <footer>
-        <p>&copy; 2025 通天野马. All rights reserved.</p>
+        <div class="container">
+            <div class="footer-content">
+                <div class="copyright">
+                    <p>&copy; 2023 通天野马. 保留所有权利.</p>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
     </footer>
+
+    <script>
+        // 简单的滚动效果
+        document.querySelectorAll('a[href^="#"]')。forEach(anchor => {
+            anchor.addEventListener('click'， function (e) {
+                e.preventDefault();
+                
+                const targetId = this。getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if(window.scrollY > 100) {
+                header.style.backgroundColor = 'rgba(26, 26, 26, 0.95)';
+            } else {
+                header.style.backgroundColor = 'rgba(26, 26, 26, 0.9)';
+            }
+        });
+    </script>
 </body>
 </html>
