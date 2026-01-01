@@ -41,6 +41,13 @@
             padding: 20px;
             image-rendering: pixelated;
             image-rendering: crisp-edges;
+            /* Minecraft风格鼠标指针 - 十字准心 */
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23FFFFFF" stroke-width="2" stroke-linecap="square" stroke-linejoin="square"><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>') 12 12, auto;
+        }
+        
+        /* 交互元素的鼠标指针 - Minecraft剑 */
+        a, button, .glass-card, .project-card, .tool-item {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="%23FFD700" stroke="%23FFFFFF" stroke-width="2" stroke-linecap="square" stroke-linejoin="square"><path d="M28 4L16 16 4 28 8 24 16 16 24 8z"/><path d="M24 8L16 16 8 24" stroke="%23FFA500"/></svg>') 16 16, pointer;
         }
 
         #bing-bg {
