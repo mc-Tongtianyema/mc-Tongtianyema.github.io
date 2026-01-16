@@ -1,320 +1,385 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>通天野马的个人主页 · 修复显示不全</title>
-  <meta name="description" content="通天野马的个人主页｜Minecraft 爱好者｜高中生站长" />
-  <link rel="preload" as="image" href="https://q1.qlogo.cn/g?b=qq&nk=2932944216&s=100">
-  <style>
- 
-    :root{
-      --bg: radial-gradient(1200px 600px at 10% 0%, #0ea5e9 0%, transparent 60%),
-            radial-gradient(800px 600px at 100% 0%, #22c55e 0%, transparent 60%),
-            radial-gradient(900px 500px at 50% 100%, #a855f7 0%, transparent 60%),
-            #0b1020;
-      --card: rgba(255,255,255,0.08);
-      --card-border: rgba(255,255,255,0.2);
-      --text: #e6f1ff;
-      --muted: #a8b3c9;
-      --btn: #111827;
-      --btn-text: #e5e7eb;
-    }
-    *{ box-sizing:border-box }
-    html{ height:auto }
-    body{
-      margin:0;
-      min-height:100vh; /* 回退 */
-      min-height:100svh; /* iOS 16+ 安全视口 */
-      min-height:100dvh; /* 新标准 */
-      background: var(--bg);
-      background-size:200% 200%;
-      color: var(--text);
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;
-      padding: 0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-      animation:bgShift 20s ease infinite;
-    }
-    @keyframes bgShift{0%{background-position:0% 0%}50%{background-position:100% 50%}100%{background-position:0% 0%}}
-
-    main.wrap{ width:min(1100px,100%); margin-inline:auto; padding:24px 16px 40px; display:grid; gap:20px }
-
-    .card{ background:var(--card); border:1px solid var(--card-border); border-radius:18px; backdrop-filter:blur(10px); box-shadow:0 10px 30px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.05) }
-
-    header.card{ display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:center; padding:20px }
-    .avatar{ width:96px;height:96px;border-radius:50%; border:2px solid rgba(255,255,255,.3); background:#0b1020 url('https://q1.qlogo.cn/g?b=qq&nk=2932944216&s=100') center/cover no-repeat; position:relative; box-shadow:0 6px 20px rgba(34,211,238,.35) }
-    .avatar::after{ content:""; position:absolute; inset:-6px; border-radius:50%; background:conic-gradient(from 0deg,#06b6d4,transparent 60%); filter:blur(12px); opacity:.35; z-index:-1 }
-    .floating{ animation:float 4s ease-in-out infinite }
-    @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-4px)}100%{transform:translateY(0)}}
-
-    .title{ display:flex; flex-direction:column; gap:4px }
-    h1{margin:0;font-size:clamp(22px,3.3vw,36px)}
-    .subtitle{color:var(--muted); font-size:14px; min-height:1.4em}
-
-  
-    .grid{ display:grid; grid-template-columns: repeat(12, 1fr); gap:16px }
-    .panel{ padding:16px }
-
-    #block-countdown{ grid-column: span 12 }
-    #block-nav{ grid-column: span 7 }
-    #block-music{ grid-column: span 5 }
-    #block-contact{ grid-column: span 12 }
-
-    @media (max-width: 960px){
-      #block-nav{ grid-column: span 12 }
-      #block-music{ grid-column: span 12 }
-    }
-    @media (max-width: 640px){
-      .grid{ grid-template-columns: 1fr }
-      #block-countdown, #block-nav, #block-music, #block-contact{ grid-column: 1 / -1 }
-    }
-
-    .buttons{ display:flex; flex-wrap:wrap; gap:12px }
-    .btn{ appearance:none; border:none; cursor:pointer; display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; font-weight:600; background:var(--btn); color:var(--btn-text); border:1px solid rgba(255,255,255,.08); text-decoration:none; transition: transform .08s ease, background .2s ease, box-shadow .2s ease; box-shadow:0 4px 10px rgba(0,0,0,.25); position:relative; overflow:hidden }
-    .btn::after{ content:""; position:absolute; inset:0; background:radial-gradient(circle at var(--x,50%) var(--y,50%), rgba(255,255,255,.18), transparent 40%); opacity:0; transition:opacity .2s }
-    .btn:hover{ transform:translateY(-1px) }
-    .btn:hover::after{ opacity:1 }
-    .btn-accent{ background:linear-gradient(135deg,#3b82f6,#06b6d4); color:white }
-
-    .countdown{ display:flex; gap:10px; flex-wrap:wrap }
-    .chip{ background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); padding:12px 14px; border-radius:12px; text-align:center; min-width:92px }
-    .chip strong{ display:block; font-size:22px; transition:transform .2s ease }
-    .chip.bump strong{ transform:scale(1.1) }
-    .chip span{ color:var(--muted); font-size:12px }
-
-    .links{ display:flex; gap:14px; flex-wrap:wrap; align-items:center }
-    .icon-link{ display:inline-flex; align-items:center; gap:8px; padding:10px 12px; border-radius:12px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); text-decoration:none; color:var(--text) }
-    .icon{ width:20px; height:20px; display:inline-block }
-
-
-    .music-player { background: rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); border-radius:14px; padding:16px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap:12px; box-shadow: 0 4px 14px rgba(0,0,0,0.18); }
-    .music-cover { width: 44px; height: 44px; border-radius: 10px; background: linear-gradient(135deg,#06b6d4,#3b82f6) }
-    .music-title { font-size: 14px; color: #a8b3c9 }
-    .music-ctrl { display:flex; align-items:center; gap:8px }
-    .music-btn { width:48px; height:48px; border:none; border-radius:50%; background: linear-gradient(135deg,#3b82f6,#06b6d4); color:#fff; font-size:18px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; transition: transform .1s ease }
-    .music-btn:hover { transform: scale(1.05) }
-    .hitokoto { margin-top:10px; font-size:14px; color:#a8b3c9; opacity:.95 }
-
-    footer{ color:var(--muted); font-size:13px; text-align:center; margin-top:20px; }
-    /* ICP备案图片样式 */
-    footer .icp-link {
-      display: inline-block;
-      margin-top: 8px;
-    }
-    footer .icp-link img {
-      height: 18px;
-      vertical-align: middle;
-    }
-
-    .modal-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,.5); display:none; align-items:center; justify-content:center; padding:20px; z-index:50 }
-    .modal{ width:min(560px,100%); background:#0f172a; border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:18px }
-    .modal h3{ margin:0 0 10px 0 }
-    .modal p{ color:var(--muted); line-height:1.7 }
-    .modal .actions{ display:flex; gap:10px; justify-content:flex-end; margin-top:14px }
-
-    .reveal{ opacity:0; transform:translateY(12px); transition:opacity .6s ease, transform .6s ease }
-    .reveal.in{ opacity:1; transform:none }
-
-    @media (max-width:640px){ .buttons{ flex-direction:column } .btn, .icon-link{ width:100%; justify-content:center } }
-
-
-    @media (prefers-reduced-motion:reduce){ *{ animation:none !important; transition:none !important } }
-  </style>
+<meta charset="UTF-8">
+<title>通天野马 · Win2000 立体复古站</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<style>
+/* ========== Win2000 经典灰度 ========== */
+:root{
+    --face:#e7e7e7;
+    --light:#ffffff;
+    --shadow:#707070;
+    --dkshadow:#404040;
+    --text:#000000;
+    --bg:#003366;          /* 老深蓝背景 */
+    --title-bg:linear-gradient(to right,#000080,#1084d0);
+    --window-width:420px;
+}
+*{
+    box-sizing:border-box;
+}
+body{
+    margin:0;
+    padding:0;
+    background:var(--bg);
+    font:12px/1.5 Tahoma,Helvetica,Arial,sans-serif;
+    color:var(--text);
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    min-height:100vh;
+}
+#win{
+    width:var(--window-width);
+    background:var(--face);
+    margin-top:40px;
+    padding:2px;
+    box-shadow:3px 3px 0 var(--dkshadow);
+}
+.titlebar{
+    background:var(--title-bg);
+    color:#fff;
+    padding:4px 6px;
+    font-weight:bold;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+.titlebar span:last-child{
+    font-size:10px;
+    letter-spacing:1px;
+}
+.content{
+    padding:12px;
+}
+.section{
+    margin-bottom:14px;
+}
+/* ========== 立体按钮 ========== */
+.btn{
+    display:inline-block;
+    background:var(--face);
+    color:var(--text);
+    text-decoration:none;
+    padding:4px 12px;
+    margin:4px 4px 6px 0;
+    border-style:solid;
+    border-width:2px;
+    border-left-color:var(--light);
+    border-top-color:var(--light);
+    border-right-color:var(--shadow);
+    border-bottom-color:var(--shadow);
+    font-size:12px;
+    cursor:pointer;
+    user-select:none;
+}
+.btn:hover{
+    background:#f0f0f0;
+}
+。btn:active,
+.btn.pressed{
+    border-left-color:var(--shadow);
+    border-top-color:var(--shadow);
+    border-right-color:var(--light);
+    border-bottom-color:var(--light);
+    background:#d9d9d9;
+}
+/* ========== 倒计时 ========== */
+.countdown{
+    display:flex;
+    gap:8px;
+    margin-top:6px;
+}
+.chip{
+    background:var(--face);
+    border:1px solid var(--shadow);
+    padding:6px 8px;
+    text-align:center;
+    min-width:52px;
+}
+.chip strong{
+    display:block;
+    font-size:18px;
+}
+.chip span{
+    font-size:10px;
+    color:var(--shadow);
+}
+/* ========== 音乐播放器 ========== */
+.music-player{
+    background:var(--face);
+    border:1px solid var(--shadow);
+    padding:8px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-top:6px;
+}
+.music-cover{
+    width:32px;
+    height:32px;
+    border:1px solid var(--shadow);
+    background:linear-gradient(135deg,#06b6d4,#3b82f6);
+}
+.music-title{
+    flex:1;
+    font-size:11px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.music-btn{
+    width:28px;
+    height:28px;
+    border:2px solid;
+    border-left-color:var(--light);
+    border-top-color:var(--light);
+    border-right-color:var(--shadow);
+    border-bottom-color:var(--shadow);
+    background:var(--face);
+    font-size:14px;
+    line-height:1;
+    cursor:pointer;
+}
+.music-btn:active{
+    border-left-color:var(--shadow);
+    border-top-color:var(--shadow);
+    border-right-color:var(--light);
+    border-bottom-color:var(--light);
+    background:#d9d9d9;
+}
+/* ========== 联系方式 ========== */
+.links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:6px;
+}
+.icon-link{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:4px 8px;
+    border:1px solid var(--shadow);
+    background:var(--face);
+    text-decoration:none;
+    color:var(--text);
+    font-size:11px;
+}
+/* ========== 弹窗 ========== */
+.modal-backdrop{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:99;
+}
+.modal{
+    width:min(360px,90%);
+    background:var(--face);
+    border:2px solid;
+    border-left-color:var(--light);
+    border-top-color:var(--light);
+    border-right-color:var(--dkshadow);
+    border-bottom-color:var(--dkshadow);
+    padding:14px;
+}
+.modal h3{
+    margin:0 0 8px 0;
+    font-size:14px;
+}
+.modal p{
+    margin:0 0 12px 0;
+    font-size:12px;
+    line-height:1.6;
+}
+.modal .actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+}
+/* ========== 底部 ========== */
+footer{
+    text-align:center;
+    font-size:11px;
+    color:var(--shadow);
+    margin-top:12px;
+}
+/* ========== ICP 备案图片 ========== */
+footer .icp-link{
+    display:inline-block;
+    margin-top:6px;
+}
+footer 。icp-link img{
+    height:14px;
+    vertical-align:middle;
+}
+</style>
+<base target="_blank">
+<base target="_blank">
 </head>
 <body>
-  <main class="wrap">
-    <header class="card reveal">
-      <div class="avatar floating" aria-hidden="true"></div>
-      <div class="title">
-        <h1>🐎 通天野马的个人主页</h1>
-        <div class="subtitle">Minecraft 爱好者｜高中生站长｜欢迎来访</div>
-      </div>
-    </header>
 
-    <section class="grid">
-      <section id="block-countdown" class="card panel reveal" aria-labelledby="countdown-title">
-        <h2 id="countdown-title" style="margin:0 0 10px 0">🎉 距离 2026-07-03 00:00（18岁生日）倒计时</h2>
-        <div class="countdown" id="countdown">
-          <div class="chip"><strong id="d">--</strong><span>天</span></div>
-          <div class="chip"><strong id="h">--</strong><span>时</span></div>
-          <div class="chip"><strong id="m">--</strong><span>分</span></div>
-          <div class="chip"><strong id="s">--</strong><span>秒</span></div>
-        </div>
-        <p id="countdown-tip" style="margin-top:10px;color:var(--muted)">系统将根据你的本地时间计算。</p>
-      </section>
-
-      <section id="block-nav" class="card panel reveal" aria-labelledby="nav-title">
-        <h2 id="nav-title" style="margin:0 0 10px 0">🧭 站点导航</h2>
-        <div class="buttons">
-          <a class="btn btn-accent" href="https://chat.shandiana.cn" target="_blank" rel="noopener noreferrer" aria-label="AI">AI</a>
-          <a class="btn" href="https://www.rainyun.com/MzA5MTM=_" target="_blank" rel="noopener noreferrer" aria-label="站长推荐">站长推荐</a>
-          <a class="btn" href="https://gxzh.shandiana.cn/" target="_blank" rel="noopener noreferrer" aria-label="共享账号">共享账号</a>
-          <button class="btn" id="aboutBtn" aria-haspopup="dialog" aria-controls="aboutModal">关于</button>
-        </div>
-      </section>
-
-      <section id="block-music" class="card panel reveal" aria-labelledby="music-title">
-        <h2 id="music-title" style="margin:0 0 10px 0">🎵 音乐</h2>
-        <div class="music-player">
-          <div class="music-cover" aria-hidden="true"></div>
-          <div class="music-title" id="trackName">正在播放：在线音乐</div>
-          <div class="music-ctrl">
-            <button id="playPauseBtn" class="music-btn" aria-label="播放/暂停">▶︎</button>
-          </div>
-          <audio id="audio" preload="none" src="https://lw-sycdn.kuwo.cn/95afc649f66bdc9bdb4a760f15de6030/6895635d/resource/30106/trackmedia/M500004alEEO1pjOdt.mp3?bitrate$128&from=vip" style="display:none"></audio>
-        </div>
-        <div id="hitokoto" class="hitokoto">加载一句话…</div>
-      </section>
-
-      <section id="block-contact" class="card panel reveal" aria-labelledby="contact-title">
-        <h2 id="contact-title" style="margin:0 0 10px 0">📡 联系方式</h2>
-        <div class="links">
-          <a class="icon-link" href="http://wpa.qq.com/msgrd?v=3&uin=2932944216&site=qq&menu=yes" target="_blank" rel="noopener noreferrer" aria-label="QQ">QQ</a>
-          <a class="icon-link" href="mailto:2932944216@qq.com" aria-label="邮箱">邮箱</a>
-          <a class="icon-link" href="https://space.bilibili.com/1675718825" target="_blank" rel="noopener noreferrer" aria-label="哔哩哔哩">哔哩哔哩</a>
-        </div>
-      </section>
-    </section>
-
-    <footer>
-      <p style="text-align:center">© <span id="year"></span> 通天野马 · Powered by HTML + CSS + JS · 愿每一次奔跑都奔向自由 🐎</p>
-      <!-- 添加ICP备案链接 -->
-      <a href="https://icp.gov.moe/?keyword=20258865" target="_blank" rel="noopener noreferrer" class="icp-link">
-        <img alt="icp" src="/assets/images/footer/icp.svg">
-      </a>
-    </footer>
-  </main>
-
-
-  <div class="modal-backdrop" id="aboutBackdrop" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
-    <div class="modal" id="aboutModal">
-      <h3 id="aboutTitle">关于本站</h3>
-      <p>关于我：<br/>我是 <strong>通天野马</strong>，一个高中生，同时也是本站站长。很高兴认识你！</p>
-      <div class="actions">
-        <a class="btn btn-accent" href="https://zanzhu.shandiana.cn/" target="_blank" rel="noopener noreferrer">💖 赞助我</a>
-        <button class="btn" id="closeAbout">关闭</button>
-      </div>
+<div id="win">
+    <div class="titlebar">
+        <span>通天野马 - 个人主页</span>
+        <span>[_][口][X]</span>
     </div>
-  </div>
 
-  <script>
+    <div class="content">
+        <!-- 关于 -->
+        <div class="section">
+            <b>关于本人</b><br>
+            江湖名号通天野马，游离于网络荒原。<br>
+            喜欢旧技术、旧文字、旧声音。
+        </div>
 
-    document.getElementById('year').textContent = new Date().getFullYear();
+        <!-- 倒计时 -->
+        <div class="section">
+            <b>距离 18 岁生日（2026-07-03）还剩</b>
+            <div class="countdown" id="countdown">
+                <div class="chip"><strong id="d">--</strong><span>天</span></div>
+                <div class="chip"><strong id="h">--</strong><span>时</span></div>
+                <div class="chip"><strong id="m">--</strong><span>分</span></div>
+                <div class="chip"><strong id="s">--</strong><span>秒</span></div>
+            </div>
+        </div>
 
-  
-    document.querySelectorAll('.btn').forEach(btn=>{
-      btn.addEventListener('pointermove', (e)=>{
-        const r = btn.getBoundingClientRect();
-        btn.style.setProperty('--x', (e.clientX - r.left) + 'px');
-        btn.style.setProperty('--y', (e.clientY - r.top) + 'px');
-      });
-    });
+        <!-- 导航 -->
+        <div class="section">
+            <b>站点导航</b>
+            <div>
+                <a class="btn" href="https://chat.shandiana.cn" target="_blank">AI 聊天</a>
+                <a class="btn" href="https://www.rainyun.com/MzA5MTM=" target="_blank">站长推荐</a>
+                <a class="btn" href="https://gxzh.shandiana.cn" target="_blank">共享账号</a>
+                <button class="btn" id="aboutBtn">关于</button>
+            </div>
+        </div>
 
+        <!-- 音乐 -->
+        <div class="section">
+            <b>音乐</b>
+            <div class="music-player">
+                <div class="music-cover" aria-hidden="true"></div>
+                <div class="music-title" id="trackName">正在播放：在线音乐</div>
+                <button id="playPauseBtn" class="music-btn" aria-label="播放/暂停">▶</button>
+            </div>
+            <audio id="audio" preload="none"
+                   src="https://lw-sycdn.kuwo.cn/95afc649f66bdc9bdb4a760f15de6030/6895635d/resource/30106/trackmedia/M500004alEEO1pjOdt.mp3?bitrate=128&from=vip"></audio>
+            <div id="hitokoto" style="font-size:11px;color:var(--shadow);margin-top:6px">加载一句话…</div>
+        </div>
 
-    // 修改生日日期为 2026-07-03
-    const target = new Date('2026-07-03T00:00:00');
-    const d = document.getElementById('d');
-    const h = document.getElementById('h');
-    const m = document.getElementById('m');
-    const s = document.getElementById('s');
-    const tip = document.getElementById('countdown-tip');
+        <!-- 联系方式 -->
+        <div class="section">
+            <b>联系方式</b>
+            <div class="links">
+                <a class="icon-link" href="mailto:3824181006@qq.com">邮箱</a>
+                <a class="icon-link" href="https://space.bilibili.com/3546878893361411?spm_id_from=333.1007.0.0">哔哩哔哩</a>
+            </div>
+        </div>
 
-    let last = {d:null,h:null,m:null,s:null};
-    function bumpIfChange(id, val){
-      if(last[id] !== val){
-        document.getElementById(id).parentElement.classList.add('bump');
-        setTimeout(()=>document.getElementById(id).parentElement.classList.remove('bump'), 180);
-        last[id] = val;
-      }
+        <!-- 底部按钮 -->
+        <div style="text-align:center;margin-top:16px;">
+            <button class="btn pressed">确定</button>
+            <button class="btn">取消</button>
+        </div>
+
+        <!-- 页脚（已放好 ICP 备案） -->
+        <footer>
+            © <span id="year"></span> 通天野马 · 愿每一次奔跑都奔向自由
+            <div class="icp-link">
+                <a href="https://icp.gov.moe/?keyword=20259019" target="_blank" rel="noopener noreferrer">
+                    <img alt="icp" src="/assets/images/footer/icp.svg">
+                </a>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<!-- 关于弹窗 -->
+<div class="modal-backdrop" id="aboutBackdrop">
+    <div class="modal">
+        <h3>关于本站</h3>
+        <p>我是 <strong>通天野马</strong>，一个10行代码9行报错的站长。很高兴认识你！</p>
+        <div class="actions">
+            <button class="btn" id="closeAbout">关闭</button>
+        </div>
+    </div>
+</div>
+
+<script>
+/* ========== 通用工具 ========== */
+const $ = q => document.querySelector(q);
+const $$ = q => document.querySelectorAll(q);
+
+/* ========== 年份 ========== */
+$('#year').textContent = new Date().getFullYear();
+
+/* ========== 倒计时 ========== */
+const target = new Date('2026-07-03T00:00:00');
+const cd = {d:$('#d'),h:$('#h'),m:$('#m'),s:$('#s')};
+let last = {d:null,h:null,m:null,s:null};
+function bump(id,val){
+    if(last[id]!==val){
+        cd[id].parentElement.style.transform = 'scale(1.15)';
+        setTimeout(()=>cd[id].parentElement.style.transform='',180);
+        last[id]=val;
     }
-    function updateCountdown(){
-      const now = new Date();
-      const ms = target - now;
-      if (ms <= 0){
-        d.textContent = '0'; h.textContent = '0'; m.textContent = '0'; s.textContent = '0';
-        tip.textContent = '倒计时结束！生日快乐，通天野马！18岁啦！';
-        return;
-      }
-      const totalSeconds = Math.floor(ms / 1000);
-      const days = Math.floor(totalSeconds / (3600*24));
-      const hours = Math.floor((totalSeconds % (3600*24)) / 3600);
-      const minutes = Math.floor((totalSeconds % 3600) / 60);
-      const seconds = totalSeconds % 60;
-      d.textContent = days; bumpIfChange('d', days);
-      h.textContent = hours.toString().padStart(2,'0'); bumpIfChange('h', hours);
-      m.textContent = minutes.toString().padStart(2,'0'); bumpIfChange('m', minutes);
-      s.textContent = seconds.toString().padStart(2,'0'); bumpIfChange('s', seconds);
+}
+function updateCountdown(){
+    const ms = target - new Date();
+    if(ms<=0){ Object.values(cd).forEach(el=>el.textContent='0'); return; }
+    const t = Math.floor(ms/1000);
+    const d=Math.floor(t/86400),h=Math.floor(t%86400/3600),m=Math.floor(t%3600/60),s=t%60;
+    cd.d.textContent=d; bump('d',d);
+    cd.h.textContent=h.toString().padStart(2,'0'); bump('h',h);
+    cd。m.textContent=m.toString().padStart(2,'0'); bump('m',m);
+    cd.s.textContent=s.toString().padStart(2,'0'); bump('s',s);
+}
+updateCountdown();
+setInterval(updateCountdown,1000);
+
+/* ========== 音乐 ========== */
+const audio=$('#audio'),btn=$('#playPauseBtn');
+btn.onclick=()=>{ audio.paused?audio.play():audio.pause(); };
+audio.onplay=()=>btn.textContent='⏸';
+audio.onpause=()=>btn.textContent='▶';
+document.addEventListener('visibilitychange',()=>document.hidden&&audio.pause());
+
+/* ========== 每日一句 ========== */
+const quotes=[
+    '愿每一次奔跑都奔向自由。',
+    '方块之上，也有无限宇宙。',
+    '保持好奇，保持热爱。',
+    '今天也要元气满满！',
+    '把目标拆成方块，一块一块搭起来。'
+];
+const idx = (new Date().getFullYear()*372 + (new Date().getMonth()+1)*31 + new Date().getDate()) % quotes.length;
+$('#hitokoto').textContent = quotes[idx];
+
+/* ========== 关于弹窗 ========== */
+$('#aboutBtn').onclick = () => $('#aboutBackdrop').style.display='flex';
+$('#closeAbout').onclick = () => $('#aboutBackdrop').style.display='none';
+$('#aboutBackdrop').onclick = e => { if(e.target===$('#aboutBackdrop')) $('#aboutBackdrop').style.display='none'; };
+window.addEventListener('keydown',e=>{ if(e.key==='Escape') $('#aboutBackdrop').style.display='none'; });
+
+/* ========== 生日提醒 ========== */
+(function(){
+    const now=new Date();
+    if(当前.getMonth()===6&&now.getDate()===3){
+        const is18=now.getFullYear()===2026;
+        const msg=is18?'🎂 通天野马，18岁生日快乐！愿前程似锦，所愿皆成！':'🎂 通天野马，生日快乐！';
+        $('#aboutModal').innerHTML=`
+            <h3>生日快乐</h3>
+            <p>${msg}</p>
+            <div class="actions"><button class="btn" id="birthdayClose">谢谢</button></div>`;
+        $('#aboutBackdrop').style.display='flex';
+        $('#birthdayClose').onclick=()=>$('#aboutBackdrop').style.display='none';
     }
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-
-   
-    const aboutBtn = document.getElementById('aboutBtn');
-    const backdrop = document.getElementById('aboutBackdrop');
-    const closeAbout = document.getElementById('closeAbout');
-    function openAbout(){ backdrop.style.display = 'flex'; }
-    function closeModal(){ backdrop.style.display = 'none'; }
-    aboutBtn.addEventListener('click', openAbout);
-    if (closeAbout) closeAbout.addEventListener('click', closeModal);
-    backdrop.addEventListener('click', (e)=>{ if(e.target === backdrop) closeModal(); });
-    window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); })
-
-   
-    const audio = document.getElementById('audio');
-    const playPauseBtn = document.getElementById('playPauseBtn');
-    const trackName = document.getElementById('trackName');
-
-    function refreshIcon(){ playPauseBtn.textContent = audio.paused ? '▶︎' : '⏸'; }
-    playPauseBtn.addEventListener('click', ()=>{ if (audio.paused) { audio.play(); } else { audio.pause(); } });
-    audio.addEventListener('play', refreshIcon);
-    audio.addEventListener('pause', refreshIcon);
-    document.addEventListener('visibilitychange', ()=>{ if (document.hidden) { audio.pause(); } });
-    refreshIcon();
-
-    
-    (function(){
-      const QUOTES = [
-        '愿每一次奔跑都奔向自由。',
-        '方块之上，也有无限宇宙。',
-        '保持好奇，保持热爱。',
-        '今天也要元气满满！',
-        '把目标拆成方块，一块一块搭起来。',
-        '不畏前路漫漫，心有光就不怕远。',
-        '愿你前程似锦，所愿皆成。',
-        '让喜欢的一切，发光。',
-        '慢慢来，但一直在。'
-      ];
-      const d = new Date();
-      const idx = (d.getFullYear()*372 + (d.getMonth()+1)*31 + d.getDate()) % QUOTES.length; 
-      const el = document.getElementById('hitokoto');
-      if (el) el.textContent = QUOTES[idx];
-    })();
-
-    
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
-
-    
-    const subtitle = document.querySelector('.subtitle');
-    const full = subtitle.textContent; subtitle.textContent = '';
-    let i = 0; (function 输入(){ subtitle.textContent = full.slice(0, ++i); if(i < full.length) setTimeout(输入, 40); })();
-
-    
-    function showBirthdayPopup(){
-      const now = new Date();
-      // 修改生日弹窗触发日期为 7月3日
-      if (当前.getMonth() === 6 && now.getDate() === 3){
-        const is2026 = now.getFullYear() === 2026;
-        const msg = is2026 ? '🎂 通天野马，18岁生日快乐！愿前程似锦，所愿皆成！' : '🎂 通天野马，生日快乐！';
-        const modal = document.getElementById('aboutModal');
-        const original = modal.innerHTML;
-        modal.innerHTML = `<h3>生日快乐</h3><p style=\"line-height:1.8\">${msg}</p><div class=\"actions\"><button class=\"btn\" id=\"birthdayClose\">谢谢</button></div>`;
-        backdrop.style.display = 'flex';
-        document.getElementById('birthdayClose').addEventListener('click', ()=>{ backdrop.style.display = 'none'; modal.innerHTML = original; const cb = document.getElementById('closeAbout'); if (cb) cb.addEventListener('click', closeModal); });
-      }
-    }
-    showBirthdayPopup();
-  </script>
+})();
+</script>
 </body>
 </html>
