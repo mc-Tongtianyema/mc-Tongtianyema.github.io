@@ -1,265 +1,133 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="">
+
 <head>
-<meta charset="UTF-8">
-<title>通天野马 · Win2000 立体复古站</title>
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<style>
-/* ========== Win2000 经典灰度 ========== */
-:root{
-    --face:#e7e7e7;
-    --light:#ffffff;
-    --shadow:#707070;
-    --dkshadow:#404040;
-    --text:#000000;
-    --bg:#003366;
-    --title-bg:linear-gradient(to right,#000080,#1084d0);
-    --window-width:420px;
-}
-*{box-sizing:border-box;}
-body{
-    margin:0;
-    padding:0;
-    background:var(--bg);
-    font:12px/1.5 Tahoma,Helvetica,Arial,sans-serif;
-    color:var(--text);
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-    min-height:100vh;
-}
-#win{
-    width:var(--window-width);
-    background:var(--face);
-    margin-top:40px;
-    padding:2px;
-    box-shadow:3px 3px 0 var(--dkshadow);
-}
-.titlebar{
-    background:var(--title-bg);
-    color:#fff;
-    padding:4px 6px;
-    font-weight:bold;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-.titlebar span:last-child{font-size:10px;letter-spacing:1px;}
-.content{padding:12px;}
-.section{margin-bottom:14px;}
-/* ========== 立体按钮 ========== */
-.btn{
-    display:inline-block;
-    background:var(--face);
-    color:var(--text);
-    text-decoration:none;
-    padding:4px 12px;
-    margin:4px 4px 6px 0;
-    border-style:solid;
-    border-width:2px;
-    border-left-color:var(--light);
-    border-top-color:var(--light);
-    border-right-color:var(--shadow);
-    border-bottom-color:var(--shadow);
-    font-size:12px;
-    cursor:pointer;
-    user-select:none;
-}
-.btn:hover{background:#f0f0f0;}
-.btn:active,
-.btn.pressed{
-    border-left-color:var(--shadow);
-    border-top-color:var(--shadow);
-    border-right-color:var(--light);
-    border-bottom-color:var(--light);
-    background:#d9d9d9;
-}
-/* ========== 倒计时 ========== */
-.countdown{display:flex;gap:8px;margin-top:6px;}
-.chip{background:var(--face);border:1px solid var(--shadow);padding:6px 8px;text-align:center;min-width:52px;}
-.chip strong{display:block;font-size:18px;}
-.chip span{font-size:10px;color:var(--shadow);}
-/* ========== 音乐播放器 ========== */
-.music-player{background:var(--face);border:1px solid var(--shadow);padding:8px;display:flex;align-items:center;gap:8px;margin-top:6px;}
-.music-cover{width:32px;height:32px;border:1px solid var(--shadow);background:linear-gradient(135deg,#06b6d4,#3b82f6);}
-.music-title{flex:1;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.music-btn{width:28px;height:28px;border:2px solid;border-left-color:var(--light);border-top-color:var(--light);border-right-color:var(--shadow);border-bottom-color:var(--shadow);background:var(--face);font-size:14px;line-height:1;cursor:pointer;}
-。music-btn:active{border-left-color:var(--shadow);border-top-color:var(--shadow);border-right-color:var(--light);border-bottom-color:var(--light);background:#d9d9d9;}
-/* ========== 联系方式 ========== */
-。links{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
-.icon-link{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border:1px solid var(--shadow);background:var(--face);text-decoration:none;color:var(--text);font-size:11px;}
-/* ========== 弹窗 ========== */
-.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:99;}
-.modal{width:min(360px,90%);background:var(--face);border:2px solid;border-left-color:var(--light);border-top-color:var(--light);border-right-color:var(--dkshadow);border-bottom-color:var(--dkshadow);padding:14px;}
-.modal h3{margin:0 0 8px 0;font-size:14px;}
-.modal p{margin:0 0 12px 0;font-size:12px;line-height:1.6;}
-.modal .actions{display:flex;justify-content:flex-end;gap:8px;}
-/* ========== 底部 ========== */
-footer{text-align:center;font-size:11px;color:var(--shadow);margin-top:12px;}
-footer .icp-link{display:inline-block;margin-top:6px;}
-footer .icp-link img{height:14px;vertical-align:middle;}
-</style>
-<base target="_blank">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- 浏览器标签上显示的网站标题 -->
+    <title>月色真美,风也温柔</title>
+    <!-- 网站介绍 -->
+    <meta name="description" content="KZHomePage是一款二次元卡片式个人网站主页模板">
+    <!-- 网站关键字 -->
+    <meta name="keywords" content="风也温柔,个人主页,程序员">
+    <!-- 浏览器标签上显示的图标 -->
+    <link rel="icon" type="image/ico" href="//sdn.geekzu.org/avatar/4cc893d113dd74ceca73f9863f2c5446/">
+    <!-- 样式文件 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css">
+    <link rel="stylesheet" href="./static/style.css?v=1.2.0">
+    <link rel="stylesheet" href="./static/APlayer-1.10.1/dist/APlayer.min.css">
+
+    <!-- 自定义设置 -->
+    <style>
+        body {
+            /*背景图片URL 可使用随机图片API */
+            background-image: url("./static/images/bg.jpeg");
+        }
+
+        .photo-bg {
+            /* 卡片左侧图片 */
+            background-image: url("./static/images/fbg.jpg");
+        }
+
+        .kz-video {
+            /* 背景视频，none: 不显示 unset 显示 */
+            display: none; 
+        }
+    </style>
+    <script>
+        // 音乐设置
+        let meting_music_api = "https://www.kezez.com/api/meting-api/";// meting api
+        let music_server = "netease"; // 音乐服务：网易云 netease 参见 meting api支持的服务
+        let music_type = "playlist"; // 歌曲类型：歌单playlist 单首歌曲 song  专辑 album
+        let music_id = "8362718673"; // 歌单ID或歌曲ID或者专辑ID 20173709 29732992
+        let music_order = "random"; // 音频循环顺序, 顺序播放： 'list', 随机播放：'random'
+        let music_mini = false; // mini模式 吸底模式开启后此选项实效 true / false
+        let music_fixed = false; // 吸底模式
+        let music_volume = 0.7; // 默认音量
+        let music_autoplay = false; // 自动播放
+        let music_loop = "all"; // 音频循环播放, 可选值: 'all', 'one', 'none' ，分别为全部循环，单曲循环，不循环
+
+        // 一言设置
+        let hitokoto_api = "https://v1.hitokoto.cn"; // 一言API
+    </script>
+    <!-- end 自定义设置 -->
 </head>
+
 <body>
+    <div class="kz-video">
+        <video src="./static/video/lty.mp4" autoplay="autoplay" loop muted playsinline="" webkit-playsinline=""></video>
+    </div>
+    <div id="main" class="container">
+        <div class="row my-card justify-content-center">
+            <div class="col-lg-4 photo-bg"></div>
+            <div class="col-lg-8 card">
+                <!-- 大标题 -->
+                <h1>KZHomePage</h1>
+                <!-- 标题下的一段话 -->
+                <p>
+                    很荣幸您能访问我的网站！ 目前我仍在学习中，每天抽出时间来看书学习，励志成为一个技术很牛的程序员。
+                </p>
+                <p id="hitokoto_text">:D 一言获取中...</p>
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- 导航按钮组 -->
+                        <button data-href="//www.kezez.com" data-title="Blog" data-window="pop" data-anim="4"
+                            data-area-w="80%" data-area-h="90%" data-shade="false"
+                            class="kz-nav-btn btn btn-primary col-lg-4">Blog</button>
 
-<div id="win">
-    <div class="titlebar">
-        <span>通天野马 - 个人主页</span>
-        <span>[_][口][X]</span>
+                        <button data-href="https://github.com/kaygb/KZHomePage" data-title="GitHub" data-window="newtab"
+                            data-anim="4" data-area-w="80%" data-area-h="90%" data-shade="false"
+                            class="kz-nav-btn btn btn-secondary col-lg-4">GitHub</button>
+
+                        <button data-href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=hi@kezez.com"
+                            data-title="Blog" data-window="pop" data-anim="4" data-area-w="80%" data-area-h="90%"
+                            data-shade="false" class="kz-nav-btn btn btn-success col-lg-4">Send a Mail</button>
+
+                        <!-- end 导航按钮组 -->
+                    </div>
+                </div>
+                <!-- aplayer inner -->
+                <div id="aplayer-inner" class="aplayer"></div>
+                <!-- end aplayer inner -->
+                <ul class="social mt-1">
+                    <li><a href="https://weibo.com/u/5223004318"><i class="fab fa-weibo " aria-hidden="true"></i></a>
+                    </li>
+                    <li><a href="https://github.com/kaygb"><i class="fab fa-github" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fab fa-telegram" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                    <li><a href="https://www.zhihu.com/people/kaygb/"><i class="fab fa-zhihu"
+                                aria-hidden="true"></i></a></li>
+                </ul>
+
+                <footer>
+                    <p>Copyright 2018 - Now <a href="https://www.170601.xyz/" target="_blank">七六零一</a>
+                        <a href="http://beian.miit.gov.cn/" target="_blank">豫ICP备00000000号-1</a>
+                        <br>
+                        <a href="https://github.com/kaygb/KZHomePage" target="_blank" rel="">KZHomePage</a>
+                        Mod by
+                        <a href="https://github.com/kaygb" target="_blank" rel="">kaygb</a>
+                        <br>
+                        <a href="https://console.upyun.com/register/?invite=r1FdZxBoH" target="_blank"
+                            rel="nofollow"><img src="https://bu.dusays.com/2021/12/15/9991d2344d2ca.png"
+                                style="width:50px;"></a>
+                    </p>
+                </footer>
+            </div>
+        </div>
+
     </div>
 
-    <div class="content">
-        <!-- 关于 -->
-        <div class="section">
-            <b>关于本人</b><br>
-            江湖名号通天野马，游离于网络荒原。<br>
-            喜欢旧技术、旧文字、旧声音。
-        </div>
+    <!-- aplayer -->
+    <div id="aplayer-fixed" class="aplayer"></div>
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="./static/APlayer-1.10.1/dist/APlayer.min.js"></script>
+    <script src="./static/Meting.min.js"></script>
+    <!-- end_aplayer -->
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script defer src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="./static/layer-v3.5.1/layer/layer.js"></script>
 
-        <!-- 倒计时 -->
-        <div class="section">
-            <b>距离 xx 岁生日（2026-07-03）还剩</b>
-            <div class="countdown" id="countdown">
-                <div class="chip"><strong id="d">--</strong><span>天</span></div>
-                <div class="chip"><strong id="h">--</strong><span>时</span></div>
-                <div class="chip"><strong id="m">--</strong><span>分</span></div>
-                <div class="chip"><strong id="s">--</strong><span>秒</span></div>
-            </div>
-        </div>
+    <script src="./static/main.js"></script>
 
-        <!-- 导航 -->
-        <div class="section">
-            <b>站点导航</b>
-            <div>
-                <a class="btn" href="http://ttym1.tbit.xin/win12/desktop.html" target="_blank">Win12</a>
-                <a class="btn" href="https://www.rainyun.com/NjY2OTYy_" target="_blank">站长推荐</a>
-                <a class="btn" href="http://ttym1.tbit.xin/menu.html" target="_blank">所有项目</a>
-                <button class="btn" id="aboutBtn">关于</button>
-            </div>
-        </div>
-
-        <!-- 音乐 -->
-        <div class="section">
-            <b>音乐</b>
-            <div class="music-player">
-                <div class="music-cover" aria-hidden="true"></div>
-                <div class="music-title" id="trackName">正在播放：在线音乐</div>
-                <button id="playPauseBtn" class="music-btn" aria-label="播放/暂停">▶</button>
-            </div>
-            <audio id="audio" preload="none"
-                   src="https://lw-sycdn.kuwo.cn/95afc649f66bdc9bdb4a760f15de6030/6895635d/resource/30106/trackmedia/M500004alEEO1pjOdt.mp3?bitrate=128&from=vip"></audio>
-            <div id="hitokoto" style="font-size:11px;color:var(--shadow);margin-top:6px">加载一句话…</div>
-        </div>
-
-        <!-- 联系方式 -->
-        <div class="section">
-            <b>联系方式</b>
-            <div class="links">
-                <a class="icon-link" href="mailto:3824181006@qq.com">邮箱</a>
-                <a class="icon-link" href="https://space.bilibili.com/3546878893361411" target="_blank">哔哩哔哩</a>
-            </div>
-        </div>
-
-        <!-- 底部按钮 -->
-        <div style="text-align:center;margin-top:16px;">
-            <button class="btn pressed">确定</button>
-            <button class="btn">取消</button>
-        </div>
-
-        <!-- 页脚（已放好 ICP 备案） -->
-        <footer>
-            © <span id="year"></span> 通天野马 · 愿每一次奔跑都奔向自由
-            <div class="icp-link">
-                <a href="https://icp.gov.moe/?keyword=20259019" target="_blank" rel="noopener noreferrer">
-                    <img alt="icp" src="/assets/images/footer/icp.svg">
-                </a>
-            </div>
-        </footer>
-    </div>
-</div>
-
-<!-- 关于弹窗 -->
-<div class="modal-backdrop" id="aboutBackdrop">
-    <div class="modal">
-        <h3>关于本站</h3>
-        <p>我是 <strong>通天野马</strong>，一个10行代码9行报错的站长。很高兴认识你！</p>
-        <div class="actions">
-            <button class="btn" id="closeAbout">关闭</button>
-        </div>
-    </div>
-</div>
-
-<script>
-/* ========== 通用工具 ========== */
-const $ = q => document.querySelector(q);
-const $$ = q => document.querySelectorAll(q);
-
-/* ========== 年份 ========== */
-$('#year').textContent = new Date().getFullYear();
-
-/* ========== 倒计时 ========== */
-const target = new Date('2026-07-03T00:00:00');
-const cd = {d:$('#d'),h:$('#h'),m:$('#m'),s:$('#s')};
-let last = {d:null,h:null,m:null,s:null};
-function bump(id,val){
-    if(last[id]!==val){
-        cd[id].parentElement.style.transform = 'scale(1.15)';
-        setTimeout(()=>cd[id].parentElement.style.transform='',180);
-        last[id]=val;
-    }
-}
-function updateCountdown(){
-    const ms = target - new Date();
-    if(ms<=0){ Object.values(cd).forEach(el=>el.textContent='0'); return; }
-    const t = Math.floor(ms/1000);
-    const d=Math.floor(t/86400),h=Math.floor(t%86400/3600),m=Math.floor(t%3600/60),s=t%60;
-    cd.d.textContent=d; bump('d',d);
-    cd.h.textContent=h.toString().padStart(2,'0'); bump('h',h);
-    cd.m.textContent=m.toString().padStart(2,'0'); bump('m',m);
-    cd.s.textContent=s.toString().padStart(2,'0'); bump('s',s);
-}
-updateCountdown();
-setInterval(updateCountdown,1000);
-
-/* ========== 音乐 ========== */
-const audio=$('#audio'),btn=$('#playPauseBtn');
-btn.onclick=()=>{ audio.paused?audio.play():audio.pause(); };
-audio.onplay=()=>btn.textContent='⏸';
-audio.onpause=()=>btn.textContent='▶';
-document.addEventListener('visibilitychange',()=>document.hidden&&audio.pause());
-
-/* ========== 每日一句 ========== */
-const quotes=[
-    '愿每一次奔跑都奔向自由。',
-    '方块之上，也有无限宇宙。',
-    '保持好奇，保持热爱。',
-    '今天也要元气满满！',
-    '把目标拆成方块，一块一块搭起来。'
-];
-const idx = (new Date().getFullYear()*372 + (new Date().getMonth()+1)*31 + new Date().getDate()) % quotes.length;
-$('#hitokoto').textContent = quotes[idx];
-
-/* ========== 关于弹窗 ========== */
-$('#aboutBtn').onclick = () => $('#aboutBackdrop').style.display='flex';
-$('#closeAbout').onclick = () => $('#aboutBackdrop').style.display='none';
-$('#aboutBackdrop').onclick = e => { if(e.target===$('#aboutBackdrop')) $('#aboutBackdrop').style.display='none'; };
-window.addEventListener('keydown',e=>{ if(e.key==='Escape') $('#aboutBackdrop').style.display='none'; });
-
-/* ========== 生日提醒 ========== */
-(function(){
-    const now=new Date();
-    if(当前.getMonth()===6&&now.getDate()===3){
-        const is18=now.getFullYear()===2026;
-        const msg=is18?'🎂 通天野马，18岁生日快乐！愿前程似锦，所愿皆成！':'🎂 通天野马，生日快乐！';
-        $('#aboutModal').innerHTML=`
-            <h3>生日快乐</h3>
-            <p>${msg}</p>
-            <div class="actions"><button class="btn" id="birthdayClose">谢谢</button></div>`;
-        $('#aboutBackdrop').style.display='flex';
-        $('#birthdayClose').onclick=()=>$('#aboutBackdrop').style.display='none';
-    }
-})();
-</script>
-</body>
 </html>
